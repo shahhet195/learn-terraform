@@ -1,15 +1,10 @@
-# Copyright (c) HashiCorp, Inc.
-# SPDX-License-Identifier: MPL-2.0
-
 provider "aws" {
   region = var.region
 }
 
-resource "aws_instance" "ubuntu" {
-  ami           = "ami-04b70fa74e45c3917"
-  instance_type = var.instance_type
+module "ec2" {
+  source = "./modules/ec2"
 
-  tags = {
-    Name = var.instance_name
-  }
+  instance_type = var.instance_type
+  instance_name = var.instance_name
 }
