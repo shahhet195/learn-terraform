@@ -34,3 +34,12 @@ jobs:
 
       - name: Git status
         run: git status
+
+      - name: Git add
+        run: git add -A
+
+      - name: Git commit
+        run: git commit -m "update moduleindex"
+
+      - name: Git push
+        run: git push
