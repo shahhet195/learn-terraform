@@ -32,5 +32,5 @@ jobs:
         shell: bash
         run: cat $PWD/README.md
 
-      - name: Print output
-        run: echo $GITHUB_OUTPUT
+      - name: Git status
+        run: git status
