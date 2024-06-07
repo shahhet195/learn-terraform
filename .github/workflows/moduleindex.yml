@@ -23,6 +23,10 @@ jobs:
         with:
           go-version: 1.16
 
+      - name: Print current working directory
+        shell: bash
+        run: echo $(pwd)
+        
       - name: Generate Terraform Modules Index and inject in README.md
         shell: bash
         run: echo $(./scripts/modules_index.sh)
