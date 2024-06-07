@@ -38,6 +38,9 @@ jobs:
       - name: Git add
         run: git add -A
 
+      - name: Git config
+        run: git config --global user.email "shahhet195@outlook.com" user.name "shahhet195"
+
       - name: Git commit
         run: git commit -m "update moduleindex"
 
