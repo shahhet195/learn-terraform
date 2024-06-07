@@ -29,4 +29,4 @@ jobs:
         
       - name: Generate Terraform Modules Index and inject in README.md
         shell: bash
-        run: echo $(./scripts/modules_index.sh)
+        run: $PWD/scripts/modules_index.sh
