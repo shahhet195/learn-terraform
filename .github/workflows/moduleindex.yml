@@ -33,4 +33,4 @@ jobs:
         run: cat $PWD/README.md
 
       - name: Print output
-        run: echo ${{ steps.moduleindex.outputs }}
+        run: echo $GITHUB_OUTPUT
