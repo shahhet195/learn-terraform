@@ -7,9 +7,12 @@ name: moduleindex
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read, write
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  init:
+  moduleindex:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -24,9 +27,8 @@ jobs:
           go-version: 1.16
         
       - name: Generate Terraform Modules Index and inject in README.md
-        id: moduleindex
         shell: bash
-        run: $PWD/scripts/module_index.sh >> $GITHUB_OUTPUT
+        run: $PWD/scripts/module_index.sh
 
       - name: Print Readme
         shell: bash
@@ -38,8 +40,8 @@ jobs:
       - name: Git add
         run: git add -A
 
-      - name: Git config
-        run: git config --global user.email "shahhet195@outlook.com" && git config --global user.name "shahhet195"
+     # - name: Git config
+      #  run: git config --global user.email "shahhet195@outlook.com" && git config --global user.name "shahhet195"
 
       - name: Git commit
         run: git commit -m "update moduleindex"
