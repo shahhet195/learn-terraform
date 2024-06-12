@@ -41,6 +41,9 @@ jobs:
       - name: Git add
         run: git add -A
 
+      - id: gh auth
+        run: gh auth status
+
      # - name: Git config
       #  run: git config --global user.email "shahhet195@outlook.com" && git config --global user.name "shahhet195"
 
