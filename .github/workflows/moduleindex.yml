@@ -41,11 +41,8 @@ jobs:
       - name: Git add
         run: git add -A
 
-      - id: ghauth
-        run: gh auth status
-
-     # - name: Git config
-      #  run: git config --global user.email "shahhet195@outlook.com" && git config --global user.name "shahhet195"
+      - name: Git config
+        run: git config --global user.email "github-actions[bot]@users.noreply.github.com" && git config --global user.name "github-actions[bot]"
 
       - name: Git commit
         run: git commit -m "update moduleindex"
