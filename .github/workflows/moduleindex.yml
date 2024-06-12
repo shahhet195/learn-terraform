@@ -41,7 +41,7 @@ jobs:
       - name: Git add
         run: git add -A
 
-      - id: gh auth
+      - id: ghauth
         run: gh auth status
 
      # - name: Git config
