@@ -40,15 +40,18 @@ jobs:
         shell: bash
         run: cat $PWD/README.md
 
-      - name: Check for changes in Readme
+      - name: Commit changes in Readme
         id: git_status
+        shell: bash
         run: |
-          git status --porcelain > git_status.txt
-          echo "::set-output name=changes::$(cat git_status.txt | wc -l)"
-
-      - name: Add changes if any
-        if: steps.git_status.outputs.changes != '0'
-        run: |
+          if [[ -n $(git status --porcelain) ]]; then
+          echo "Changes detected in moduleindex. Adding to staging area..."
+          git status
           git add .
           git commit -m "Auto-generate moduleindex by GitHub Actions"
           git push
+          echo "Changes have been added to the staging area."
+          else
+          echo "No changes detected."
+          fi
+
