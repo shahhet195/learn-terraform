@@ -42,7 +42,7 @@ jobs:
         run: cat $PWD/README.md
 
       - name: Commit changes in Readme
-        id: git_status
+        id: git_commit
         shell: bash
         run: |
           if [[ -n $(git status --porcelain) ]]; then
@@ -50,13 +50,14 @@ jobs:
           git status
           git add .
           git commit -m "Auto-generate moduleindex by GitHub Actions"
-          echo "Changes have been added to the staging area."
+          echo "Changes have been commited"
           else
           echo "No changes detected."
           fi
           
       - name: Create Pull Request
         id: cpr
+        if: ${{ steps.git_commit.outputs -eq "Changes have been commited" }}
         uses: peter-evans/create-pull-request@v6
       
       - name: Check outputs
