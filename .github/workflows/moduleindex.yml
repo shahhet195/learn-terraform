@@ -26,6 +26,11 @@ jobs:
         uses: actions/setup-go@v3
         with:
           go-version: 1.16
+
+      - name: Set up Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         
       - name: Generate Terraform Modules Index and inject in README.md
         shell: bash
@@ -35,17 +40,15 @@ jobs:
         shell: bash
         run: cat $PWD/README.md
 
-      - name: Git status
-        run: git status
+      - name: Check for changes in Readme
+        id: git_status
+        run: |
+          git status --porcelain > git_status.txt
+          echo "::set-output name=changes::$(cat git_status.txt | wc -l)"
 
-      - name: Git add
-        run: git add -A
-
-      - name: Git config
-        run: git config --global user.email "github-actions[bot]@users.noreply.github.com" && git config --global user.name "github-actions[bot]"
-
-      - name: Git commit
-        run: git commit -m "update moduleindex"
-
-      - name: Git push
-        run: git push
+      - name: Add changes if any
+        if: steps.git_status.outputs.changes != '0'
+        run: |
+          git add .
+          git commit -m "Auto-generate moduleindex by GitHub Actions"
+          git push
