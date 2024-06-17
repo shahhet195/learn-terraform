@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -49,9 +50,16 @@ jobs:
           git status
           git add .
           git commit -m "Auto-generate moduleindex by GitHub Actions"
-          git push
           echo "Changes have been added to the staging area."
           else
           echo "No changes detected."
           fi
-
+          
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v6
+      
+      - name: Check outputs
+        if: ${{ steps.cpr.outputs.pull-request-number }}
+        run: |
+          echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
