@@ -46,14 +46,14 @@ jobs:
         shell: bash
         run: |
           if [[ -n $(git status --porcelain) ]]; then
-          true
+          echo "true"
           else
-          false
+          echo "false"
           fi
 
       - name: Commit changes in Readme
         id: git_commit
-        if: steps.git_status.outputs
+        if: steps.git_status.outputs == 'true'
         shell: bash
         run: |
           if [[ -n $(git status --porcelain) ]]; then
