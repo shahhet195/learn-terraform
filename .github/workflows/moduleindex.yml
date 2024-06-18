@@ -41,8 +41,18 @@ jobs:
         shell: bash
         run: cat $PWD/README.md
 
+      - name: Git status
+        id: git_status
+        shell: bash
+        run: |
+          if [[ -n $(git status --porcelain) ]]; then
+          true
+          else
+          false
+
       - name: Commit changes in Readme
         id: git_commit
+        if: steps.git_status.outputs
         shell: bash
         run: |
           if [[ -n $(git status --porcelain) ]]; then
@@ -58,6 +68,16 @@ jobs:
         id: cpr
         if: steps.git_commit.outputs == 'Changes have been commited'
         uses: peter-evans/create-pull-request@v6
+        with:
+          title: Auto-Update Terraform Modules Index in README
+          body: |
+            Good news everyone,
+            There is a new terraform module!
+            Let's update that in README.md.
+            ---
+            🤖 I am a bot, beep beep.
+          branch: update-readme/$(date +'%Y%m%d%H%M%S')
+          base: master
       
       - name: Check outputs
         if: ${{ steps.cpr.outputs.pull-request-number }}
