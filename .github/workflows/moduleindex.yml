@@ -5,7 +5,6 @@ on:
 
 jobs:
   tfmoduleindex:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -49,9 +48,13 @@ jobs:
           add-paths: ./README.md
           title: Auto-Update Terraform Modules Index in README
           body: |
+            ---
             Good news everyone,
+            
             There is a new terraform module!
+            
             Let's update that in README.md.
+            
             ---
             🤖 I am a bot, beep beep.
           branch: autoupdate-readme
@@ -62,8 +65,3 @@ jobs:
         if: ${{ steps.cpr.outputs.pull-request-number }}
         run: |
           echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
-
-      - name: Merge the PR
-        if: ${{ steps.cpr.outputs.pull-request-number }}
-        run: |
-          gh pr merge ${{ steps.cpr.outputs.pull-request-number }} --merge --delete-branch
