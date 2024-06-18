@@ -1,5 +1,0 @@
-| Module | Description |
-|------|------|
-{{- range $i, $mod := .Modules }}
-| [{{ $mod.RelDirectory | trimPrefix "modules/" }}]({{ $mod.RelDirectory }}) | {{ $mod.ShortDescription | trimAll " " | abbrev 80 |  }} |
-{{- end -}}
