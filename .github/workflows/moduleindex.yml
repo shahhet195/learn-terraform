@@ -55,7 +55,7 @@ jobs:
             ---
             🤖 I am a bot, beep beep.
           branch: update-readme/$(date +'%Y%m%d%H%M%S')
-          base: master
+          base: main
       
       - name: Check outputs
         if: ${{ steps.cpr.outputs.pull-request-number }}
