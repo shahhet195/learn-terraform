@@ -40,7 +40,7 @@ jobs:
           
       - name: Create Pull Request
         id: cpr
-        if: steps.git_status.outputs == 'true'
+        if: steps.git_status.outputs
         uses: peter-evans/create-pull-request@v6
         with:
           committer: github-actions[bot]@users.noreply.github.com
