@@ -54,7 +54,7 @@ jobs:
             Let's update that in README.md.
             ---
             🤖 I am a bot, beep beep.
-          branch: update-readme/$(date +'%Y%m%d%H%M%S')
+          branch: autoupdate-readme
           base: main
       
       - name: Check outputs
