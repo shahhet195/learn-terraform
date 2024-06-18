@@ -43,9 +43,9 @@ jobs:
         if: steps.git_status.outputs
         uses: peter-evans/create-pull-request@v6
         with:
-          committer: github-actions[bot]@users.noreply.github.com
+          committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
           commit-message: "Auto-generate moduleindex by GitHub Actions"
-          author: github-actions[bot]@users.noreply.github.com
+          author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
           add-paths: ./README.md
           title: Auto-Update Terraform Modules Index in README
           body: |
