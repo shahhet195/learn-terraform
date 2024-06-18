@@ -25,18 +25,12 @@ jobs:
         shell: bash
         run: $PWD/scripts/tfmoduleindex.sh
 
-      - name: Print Readme
-        shell: bash
-        run: cat $PWD/README.md
-
       - name: Git status
         id: git_status
         shell: bash
         run: |
           if [[ -n $(git status --porcelain) ]]; then
-          echo "true"
-          else
-          echo "false"
+          true
           fi
           
       - name: Create Pull Request
