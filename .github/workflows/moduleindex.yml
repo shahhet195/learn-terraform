@@ -31,11 +31,13 @@ jobs:
         run: |
           if [[ -n $(git status --porcelain) ]]; then
           echo "Pending Changes"
+          else
+          exit 1
           fi
           
       - name: Create Pull Request
         id: cpr
-        if: steps.git_status.outputs == 'Pending Changes'
+        if: ${{ success() }}
         uses: peter-evans/create-pull-request@v6
         with:
           committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
