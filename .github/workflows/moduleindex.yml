@@ -56,7 +56,7 @@ jobs:
           
       - name: Create Pull Request
         id: cpr
-        if: steps.git_commit.outputs = "Changes have been commited"
+        if: steps.git_commit.outputs == 'Changes have been commited'
         uses: peter-evans/create-pull-request@v6
       
       - name: Check outputs
