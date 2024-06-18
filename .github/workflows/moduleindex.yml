@@ -67,9 +67,13 @@ jobs:
           
       - name: Create Pull Request
         id: cpr
-        if: steps.git_commit.outputs == 'Changes have been commited'
+        if: steps.git_status.outputs == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
+          committer: github-actions[bot]@users.noreply.github.com
+          commit-message: "Auto-generate moduleindex by GitHub Actions"
+          author: github-actions[bot]@users.noreply.github.com
+          add-paths: ./README.md
           title: Auto-Update Terraform Modules Index in README
           body: |
             Good news everyone,
