@@ -49,6 +49,7 @@ jobs:
           true
           else
           false
+          fi
 
       - name: Commit changes in Readme
         id: git_commit
