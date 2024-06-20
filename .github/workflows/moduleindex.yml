@@ -36,6 +36,11 @@ jobs:
           else
           echo "module_updates=0" | tee -a $GITHUB_OUTPUT
           fi
+
+      - name: Git diff
+        if: >-
+          steps.git_status.outputs.module_updates > 0
+        run: git diff
           
       - name: Create Pull Request
         id: cpr
