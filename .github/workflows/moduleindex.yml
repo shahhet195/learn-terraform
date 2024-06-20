@@ -32,15 +32,15 @@ jobs:
         shell: bash
         run: |
           if [[ -n $(git status --porcelain) ]]; then
-          echo "new_modules=$(git status --porcelain | wc -l)" | tee -a $GITHUB_OUTPUT
+          echo "module_updates=$(git status --porcelain | wc -l)" | tee -a $GITHUB_OUTPUT
           else
-          echo "new_modules=0" | tee -a $GITHUB_OUTPUT
+          echo "module_updates=0" | tee -a $GITHUB_OUTPUT
           fi
           
       - name: Create Pull Request
         id: cpr
         if: >-
-          steps.git_status.outputs.new_modules > 0
+          steps.git_status.outputs.module_updates > 0
         uses: peter-evans/create-pull-request@v6
         with:
           committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
