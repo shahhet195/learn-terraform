@@ -22,8 +22,10 @@ jobs:
           go-version: 1.21
         
       - name: Generate Terraform Modules Index and inject in README.md
-        shell: bash
-        run: $PWD/scripts/tfmoduleindex.sh
+        run: |
+          moduleindex="$PWD/scripts/tfmoduleindex.sh"
+          eval $moduleindex
+          echo $moduleindex
 
       - name: Git status
         id: git_status
@@ -31,8 +33,6 @@ jobs:
         run: |
           if [[ -n $(git status --porcelain) ]]; then
           echo "Pending Changes"
-          else
-          exit 1
           fi
           
       - name: Create Pull Request
