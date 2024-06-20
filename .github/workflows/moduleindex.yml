@@ -23,7 +23,7 @@ jobs:
         
       - name: Generate Terraform Modules Index and inject in README.md
         run: |
-          moduleindex="$PWD/scripts/tfmoduleindex.sh >/dev/null 2>&1"
+          moduleindex="$PWD/scripts/tfmoduleindex.sh"
           eval $moduleindex
           echo $moduleindex
 
