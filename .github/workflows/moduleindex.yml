@@ -23,7 +23,7 @@ jobs:
         
       - name: Generate Terraform Modules Index and inject in README.md
         run: |
-          moduleindex="$PWD/scripts/tfmoduleindex.sh"
+          moduleindex="$PWD/scripts/tfmoduleindex.sh > /dev/null"
           eval $moduleindex
           echo $moduleindex
 
@@ -32,12 +32,14 @@ jobs:
         shell: bash
         run: |
           if [[ -n $(git status --porcelain) ]]; then
-          echo "Pending Changes"
+          echo "status=true" | tee -a $GITHUB_OUTPUT
+          else
+          echo "status=false" | tee -a $GITHUB_OUTPUT
           fi
           
       - name: Create Pull Request
         id: cpr
-        if: ${{ success() }}
+        if: ${{ steps.git_status.outputs.status }}
         uses: peter-evans/create-pull-request@v6
         with:
           committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
