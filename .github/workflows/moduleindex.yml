@@ -32,6 +32,7 @@ jobs:
           if [[ -n $(git status --porcelain) ]]; then
           git diff
           echo "module_updates=$(git status --porcelain | wc -l)" | tee -a $GITHUB_OUTPUT
+          fi
           
       - name: Create Pull Request
         id: cpr
