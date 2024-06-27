@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'main'
+      - 'master'
 
 jobs:
   tfmoduleindex:
@@ -14,18 +15,15 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Setup Go
+      - name: Install Go
         uses: actions/setup-go@v4
         with:
           go-version: 1.21
         
       - name: Generate Terraform Modules Index and inject in README.md
-        run: |
-          moduleindex="$PWD/scripts/tfmoduleindex.sh"
-          eval $moduleindex
-          echo $moduleindex
+        run: $GITHUB_ACTION_PATH/scripts/tfmoduleindex.sh
 
       - name: Git status
         id: git_status
@@ -34,9 +32,6 @@ jobs:
           if [[ -n $(git status --porcelain) ]]; then
           git diff
           echo "module_updates=$(git status --porcelain | wc -l)" | tee -a $GITHUB_OUTPUT
-          else
-          echo "module_updates=0" | tee -a $GITHUB_OUTPUT
-          fi
           
       - name: Create Pull Request
         id: cpr
