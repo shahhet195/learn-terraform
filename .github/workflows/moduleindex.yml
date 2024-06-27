@@ -23,7 +23,7 @@ jobs:
           go-version: 1.21
         
       - name: Generate Terraform Modules Index and inject in README.md
-        run: $GITHUB_ACTION_PATH/scripts/tfmoduleindex.sh
+        run: $GITHUB_ACTION_PATH/scripts/gen_tfmoduleindex.sh
 
       - name: Git status
         id: git_status
